@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style>
+     i{
+        margin-left: 5px;
+     }
+    #er{
+        color:red;
+        margin-right: 3px;
+     }
+     #hello{
+        margin-bottom: 0;
+  width:250px;
+  height: 500px;
+     }
+    
+     #img1{
+        width: 40%;
+        margin-top: 50px;
+     }
+     #img2{
+        width: 7%;
+        margin-top: 10px;
+     }
+     table{
+        width: 60%;
+        border:5px solid whitesmoke
+     }
+     td{
+        width:30%;
+        border:5px solid whitesmoke
+       
+     }
+     label{display:flex;}
+     .container{
+        position: relative;
+     }
+     #box1{
+       position: absolute;
+       width:70%;
+       left:1%;
+       border:1px solid whitesmoke
+     }
+     #box2{
+       
+       width:40%;
+       left:75%;
+       position: absolute;
+       border:1px solid whitesmoke
+     }
+     #plus{
+        background-color: rgb(83, 127, 16);
+    }
+    #minus{
+        background-color: yellow;
+        color:black;
+    }
+  
+  </style>
+   
+  </head>
+  <body>
+    <div class="container">
+        <div id="nav">
+            
+        </div>
+    <div id="show">
+   
+</div>
+<div class='container' id="box2"><div id='world'></div>
+</div>
+    <script>
+        let cart=[]
+        let errors={}
+        let sizes = ["Regular","Medium","Large"];
+let crusts = ["New Hand Tossed","Wheat Thin Crust","Cheese Burst","Fresh Pan Pizza","Classic Hand Tossed"];
+        let myShirt={}
+        const shirt=[{"id":"MIR101","image":"https://i.ibb.co/SR1Jzpv/mirinda.png","type":"Beverage","name":"Mirinda","desc":"Mirinda","veg":"Yes"},
+{"id":"PEP001","image":"https://i.ibb.co/3vkKqsF/pepsi-black.png","type":"Beverage","name":"Pepsi Black Can","desc":"Pepsi Black Can","veg":"Yes"},
+{"id":"LIT281","image":"https://i.ibb.co/27PvTng/lit.png","type":"Beverage","name":"Lipton Iced Tea","desc":"Lipton Iced Tea","veg":"Yes"},
+{"id":"PEP022","image":"https://i.ibb.co/1M9xDZB/pepsi-new-20190312.png","type":"Beverage","name":"Pepsi New","desc":"Pepsi New","veg":"Yes"},
+{"id":"BPCNV1","image":"https://i.ibb.co/R0VSJjq/Burger-Pizza-Non-Veg-nvg.png","type":"Burger Pizza","name":"Classic Non Veg","desc":"Oven-baked buns with cheese, peri-peri chicken, tomato & capsicum in creamy mayo","veg":"No"},
+{"id":"BPCV03","image":"https://i.ibb.co/Xtx43fT/Burger-Pizza-Veg-423-X420-Pixel-1.png","type":"Burger Pizza","name":"Classic Veg","desc":"Oven-baked buns with cheese, tomato & capsicum in creamy mayo","veg":"Yes"},
+{"id":"BPPV04","image":"https://i.ibb.co/Xtx43fT/Burger-Pizza-Veg-423-X420-Pixel-1.png","type":"Burger Pizza","name":"Premium Veg","desc":"Oven-baked buns with cheese, paneer, tomato, capsicum & red paprika in creamy mayo","veg":"Yes"},
+{"id":"DIP033","image":"https://i.ibb.co/0mbBzsw/new-cheesy.png","type":"Side Dish","name":"Cheesy Dip","desc":"An all-time favorite with your Garlic Breadsticks & Stuffed Garlic Bread for a Cheesy indulgence","veg":"Yes"},
+{"id":"DIP072","image":"https://i.ibb.co/fY52zBw/new-jalapeno.png","type":"Side Dish","name":"Cheesy Jalapeno Dip","desc":"A spicy, tangy flavored cheese dip is a an absolute delight with your favourite Garlic Breadsticks","veg":"Yes"},
+{"id":"GAR952","image":"https://i.ibb.co/BNVmfY9/Garlic-bread.png","type":"Side Dish","name":"Garlic Breadsticks","desc":"Baked to perfection. Your perfect pizza partner! Tastes best with dip","veg":"Yes"},{"id":"PARCH1","image":"https://i.ibb.co/prBs3NJ/Parcel-Nonveg.png","type":"Side Dish","name":"Chicken Parcel","desc":"Snacky bites! Pizza rolls with chicken sausage & creamy harissa sauce","veg":"No"},
+{"id":"PARVG7","image":"https://i.ibb.co/JHhrM7d/Parcel-Veg.png","type":"Side Dish","name":"Veg Parcel","desc":"Snacky bites! Pizza rolls with paneer & creamy harissa sauce","veg":"Yes"},
+{"id":"PATNV7","image":"https://i.ibb.co/0m89Jw9/White-Pasta-Nvg.png","type":"Side Dish","name":"White Pasta Italiano Non-Veg","desc":"Creamy white pasta with pepper barbecue chicken","veg":"No"},
+{"id":"PATVG4","image":"https://i.ibb.co/mv8RFbk/White-Pasta-Veg.png","type":"Side Dish","name":"White Pasta Italiano Veg","desc":"Creamy white pasta with herb grilled mushrooms","veg":"Yes"},
+{"id":"DES044","image":"https://i.ibb.co/gvpDKPv/Butterscotch.png","type":"Dessert","name":"Butterscotch Mousse Cake","desc":"Sweet temptation! Butterscotch flavored mousse","veg":"Yes"},
+{"id":"DES028","image":"https://i.ibb.co/nm96NZW/Choco-Lava.png","type":"Dessert","name":"Choco Lava Cake","desc":"Chocolate lovers delight! Indulgent, gooey molten lava inside chocolate cake","veg":"Yes"},
+{"id":"PIZVDV","image":"https://i.ibb.co/F0H0SWG/deluxeveg.png","type":"Pizza","name":"Deluxe Veggie","desc":"Veg delight - onion, capsicum, grilled mushroom, corn & paneer","veg":"Yes"},
+{"id":"PIZVFH","image":"https://i.ibb.co/4mHxB5x/farmhouse.png","type":"Pizza","name":"Farmhouse","desc":"Delightful combination of onion, capsicum, tomato & grilled mushroom","veg":"Yes"},
+{"id":"PIZVIT","image":"https://i.ibb.co/sRH7Qzf/Indian-Tandoori-Paneer.png","type":"Pizza","name":"Indi Tandoori Paneer","desc":"It is hot. It is spicy. It is oh-soIndian. Tandoori paneer with capsicum, red paprika & mint mayo","veg":"Yes"},
+{"id":"PIZVMG","image":"https://i.ibb.co/MGcHnDZ/mexgreen.png","type":"Pizza","name":"Mexican Green Wave","desc":"Mexican herbs sprinkled on onion, capsicum, tomato & jalapeno","veg":"Yes"},
+{"id":"PIZVPP","image":"https://i.ibb.co/cb5vLX9/peppypaneer.png","type":"Pizza","name":"Peppy Paneer","desc":"Flavorful trio of juicy paneer, crisp capsicum with spicy red paprika","veg":"Yes"},
+{"id":"PIZVVE","image":"https://i.ibb.co/gTy5DTK/vegextra.png","type":"Pizza","name":"Veg Extravaganza","desc":"Black olives, capsicum, onion, grilled mushroom, corn, tomato, jalapeno & extra cheese","veg":"Yes"},
+{"id":"PIZNCP","image":"https://i.ibb.co/b5qBJ9d/cheesepepperoni.png","type":"Pizza","name":"Chicken Pepperoni","desc":"A classic American taste! Relish the delectable flavor of Chicken Pepperoni, topped with extra cheese","veg":"No"},
+{"id":"PIZNCD","image":"https://i.ibb.co/GFtkbB1/Chicken-Dominator10.png","type":"Pizza","name":"Chicken Dominator","desc":"Loaded with double pepper barbecue chicken, peri-peri chicken, chicken tikka & grilled chicken rashers","veg":"No"},
+{"id":"PIZNPB","image":"https://i.ibb.co/GxbtcLK/Pepper-Barbeque-Onion-C.png","type":"Pizza","name":"Pepper Barbecue & Onion","desc":"A classic favourite with pepper barbeque chicken & onion","veg":"No"},
+{"id":"PIZNIC","image":"https://i.ibb.co/6Z5wBqr/Indian-Tandoori-Chicken-Tikka.png","type":"Pizza","name":"Indi Chicken Tikka","desc":"The wholesome flavour of tandoori masala with Chicken tikka, onion, red paprika & mint mayo","veg":"No"}]
+let veg,nonveg,sides,others;
+     
+        let editIndex=-1
+        let visionIndex=-1
+        let a=''
+        function show(arr,size='',crust=''){
+            Cart()
+           showNavbar(1)
+            let html=showProducts(arr,arr.length);
+            document.getElementById('show').innerHTML=html+`<br>`
+            
+        }
+       
+
+        function AddtoCart(m,n){
+
+
+        let k='',l=''
+        console.log(m)
+        if(m=='c'||m=='d'){
+    let findIndex=cart.findIndex(e=>e.code===n)
+    if(findIndex<0){
+       let quantity=1;
+        let find =shirt.find(e=>e.id==n)
+        find1={code:find.id,image:find.image,desc:find.desc,name:find.name,quantity:quantity}
+        cart.push(find1)
+        console.log(cart)
+        if(m=='c')
+        show11(shirt)
+        if(m=='d')
+        show111(shirt)
+    }
+    else{
+       cart[findIndex].quantity++
+       if(m=='c')
+        show11(shirt)
+        if(m=='d')
+        show111(shirt)
+
+        console.log(cart)
+
+    }
+ }
+
+       else if(m=='a'){
+       let a0 =document.getElementById('a0').value
+       let b0 =document.getElementById('b0').value
+       let a1 =document.getElementById('a1').value
+       let b1=document.getElementById('b1').value
+       let a2 =document.getElementById('a2').value
+       let b2=document.getElementById('b2').value
+        let a3 =document.getElementById('a3').value
+        let b3=document.getElementById('b3').value
+        let a4 =document.getElementById('a4').value
+        let b4=document.getElementById('b4').value
+        let a5 =document.getElementById('a5').value
+        let b5=document.getElementById('b5').value
+        
+        if(a0!=''&&b0!=''){
+    k=a0
+    l=b0
+ }
+ else if(a1!=''&&b1!=''){
+    k=a1
+    l=b1
+ }
+ else if(a2!=''&&b2!=''){
+    k=a2
+    l=b2
+ }
+ else if(a3!=''&&b3!=''){
+    k=a3
+    l=b3
+ }
+ else if(a4!=''&&b4!=''){
+    k=a4
+    l=b4
+ }
+ else if(a5!=''&&b5!=''){
+    k=a5
+    l=b5
+ }
+ console.log(k,l)
+ if(k==''||l==''){
+                alert('Choose all the options before adding to the cart')
+                return
+            }
+ else{
+    let findIndex=cart.findIndex(e=>e.code==n)
+    if(findIndex<0){
+       let quantity=1;
+        let find =shirt.find(e=>e.id==n)
+        find1={code:find.id,image:find.image,desc:find.desc,size:k,crust:l,name:find.name,quantity:quantity}
+        cart.push(find1)
+        console.log(cart)
+        show(shirt,k,l)
+       
+    }
+    else{
+       cart[findIndex].quantity++
+
+       show(shirt,k,l)
+
+    }
+ }           
+
+        }
+else if(m=='b'){
+        let c0=document.getElementById('c0').value
+        let  d0=document.getElementById('d0').value
+        let c1=document.getElementById('c1').value
+        let d1=document.getElementById('d1').value
+        let c2=document.getElementById('c2').value
+        let d2=document.getElementById('d2').value
+        let c3=document.getElementById('c3').value
+        let d3=document.getElementById('d3').value
+
+ 
+  if(c0&&d0){
+    k=c0
+    l=d0
+ }
+ else if(c1&&d1){
+    k=c1
+    l=d1
+ }
+ else if(c2&&d2){
+    k=c2
+    l=d2
+ }
+ else if(c3&&d3){
+    k=c3
+    l=d3
+ }
+
+ if(k==''||l==''){
+alert('Choose all the options before adding to the cart')
+ return
+}
+else{
+    let findIndex=cart.findIndex(e=>e.code==n)
+    if(findIndex<0){
+       let quantity=1;
+        let find =shirt.find(e=>e.id==n)
+        find1={code:find.id,image:find.image,desc:find.desc,size:k,crust:l,name:find.name,quantity:quantity}
+        cart.push(find1)
+        console.log(cart)
+        show1(shirt,k,l)
+    }
+    else{
+       cart[findIndex].quantity++
+       show1(shirt,k,l)
+        console.log(cart)
+
+    }
+ } 
+
+}
+
+}
+
+        function Cart(){
+            showNavbar(3)
+        if(cart.length==0){
+           
+            document.getElementById('box2').innerHTML='<h2><b>No Product is added</b></h2>'
+        }
+        else{
+            let arr1=cart.map((pr,index)=>{
+                let {name,desc,size='',crust='',quantity,code,image}=pr;
+               let str='';
+               str+=`<div class="row border"><div class="col-4"><img src="`+image+`" width ="70%"></div>`
+                str+=`<div class="col-8">`+name+`<br>`+desc+`<br>`+size+crust+`<br><button id="plus" class="btn btn-secondary btn-sm" onclick="add(`+index+`)" ><i class="fas fa-plus"></i></button><button id="qty" class="btn btn-secondary btn-sm">`+quantity+`</button><button id="minus" class="btn btn-secondary btn-sm " onclick="subs(`+index+`)" ><i class="fas fa-minus"></i></button></div>`
+        return str+`</div>`
+    })
+            document.getElementById('box2').innerHTML='<center><h3><b>Cart</b></h3><center>'+`<div class='container'>`+arr1.join('')+`</div>`;
+    }
+        }
+        function add(i){
+            cart[i].quantity++
+            Cart()
+        }
+        function subs(i){
+            if(cart[i].quantity>1){
+            cart[i].quantity--
+            Cart()}
+            else{
+                cart.splice(i,1)
+                Cart()
+            }
+        }
+   
+        showNavbar()
+        
+        function showProducts(arr,size='',crust=''){
+            
+            arr1=arr.filter(e=>e.type=='Pizza'&&e.veg=='Yes')
+      let arr2=arr1.map((pr,index)=>{
+                let {id,image,type,name,desc}=pr;
+                let m=[pr]
+                let a='a'+index
+                let b='b'+index
+               let str='' 
+            
+            
+    
+
+            str+=`<div class='col-6'><center><img src="`+image+`" width="90%">`+name+`</center><p>`
+             str+=desc+`</p>`+makeDropdown(a,sizes,'Select Size',size)+makeDropdown(b,crusts,'Select Crust',crust);
+                str+=`<center><button class="btn btn-primary btn-sm" onclick="AddtoCart('a','`+id+`')">Add To Cart</button><center><br></div>`
+        return str
+            })
+            veg=arr2
+      return `<div class="container" id="box1">`+`<div class="row border">`+arr2.join('')+`</div></div></div>`
+ }
+ function showForm(arr,size='',crust=''){
+    arr1=arr.filter(e=>e.type=='Pizza'&&e.veg=='No')
+      let arr2=arr1.map((pr,index)=>{
+                let {id,image,type,name,desc}=pr;
+                let x='c'+index
+                let y='d'+index
+
+               let str='' 
+            
+           
+    
+
+            str+=`<div class='col-6'><center><img src="`+image+`" width="90%">`+name+`</center><p>`
+             str+=desc+`</p>`+makeDropdown(x,sizes,'Select Size',size)+makeDropdown(y,crusts,'Select Crust',crust);
+                str+=`<center><button class="btn btn-primary btn-sm" onclick="AddtoCart('b','`+id+`')" >Add To Cart</button><center><br></div>`
+        return str
+            })
+            nonveg=arr2
+      return `<div class="container" id="box1">`+`<div class="row border">`+arr2.join('')+`</div></div>`
+ }
+ function show1(arr,size='',crust=''){
+Cart()
+showNavbar(2)
+ let html=showForm(arr,size='',crust='');
+ document.getElementById('show').innerHTML=html+`<br>`
+ 
+}
+function showForm1(arr,size='',crust=''){
+    arr1=arr.filter(e=>e.type=='Side Dish')
+      let arr2=arr1.map((pr,index)=>{
+                let {id,image,type,name,desc}=pr;
+          
+            
+               let str='' 
+            
+            
+    
+
+            str+=`<div class='col-6'><center><img src="`+image+`" width="90%">`+name+`</center><p>`
+             str+=desc+`</p><center><button class="btn btn-primary btn-sm" onclick="AddtoCart('c','`+id+`')">Add To Cart</button><center><br></div>`
+        return str
+            })
+            sides=arr2
+      return `<div class="container" id="box1">`+`<div class="row border">`+arr2.join('')+`</div></div></div>`
+ }
+ function show111(arr,size='',crust=''){
+Cart()
+showNavbar(4)
+ let html=showForm11(arr,size='',crust='');
+ document.getElementById('show').innerHTML=html+`<br>`
+ 
+}
+function showForm11(arr,size='',crust=''){
+    arr1=arr.filter(e=>e.type!='Pizza'&&e.type!='Side Dish')
+      let arr2=arr1.map((pr,index)=>{
+                let {id,image,type,name,desc}=pr;
+     
+               let str='' 
+            
+    
+
+            str+=`<div class='col-6'><center><img src="`+image+`" width="90%"><b>`+name+`</b><p>`
+             str+=desc+`</p><button class="btn btn-primary btn-sm" onclick="AddtoCart('d','`+id+`')">Add To Cart</button><center><br></div>`
+        return str
+            })
+            others=arr2
+      return `<div class="container" id="box1">`+`<div class="row border">`+arr2.join('')+`</div></div></div>`
+ }
+ function show11(arr,size='',crust=''){
+Cart()
+showNavbar(3)
+ let html=showForm1(arr,size='',crust='');
+ document.getElementById('show').innerHTML=html+`<br>`
+ 
+}
+   
+  
+
+    function showNavbar(a=0){
+        let str=navBar(a);
+      
+        document.getElementById('nav').innerHTML=str
+    }
+  
+    function navBar(active=0){
+        let active1=active===1?'active':''
+        let active2=active===2?'active':''
+        let active3=active===3?'active':''
+        let active4=active===4?'active':''
+        let active5=active===5?'active':''
+        let active6=active===6?'active':''
+        let str=''
+        str+=`<nav class="navbar navbar-expand-lg navbar-light bg-light">`
+                +`<a class="navbar-brand" href="#">MyFavPizza</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
+                    <span class="navbar-toggler-icon"></span>
+                </button> 
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item `+active1+`">
+                            <a class="nav-link" onclick="show(shirt)">Veg Pizza</a>
+                        </li>
+                        <li class="nav-item `+active2+` ">
+                            <a class="nav-link" onclick="show1(shirt)">Non-Veg Pizza</a>
+                        </li>
+                        <li class="nav-item `+active3+` ">
+                            <a class="nav-link" onclick="show11(shirt)">Side Dishes</a>
+                        </li>
+                        <li class="nav-item `+active4+` ">
+                            <a class="nav-link" onclick="show111(shirt)">Other Items</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>`
+            return str
+    }
+    //Submit either purshing or replacing the data
+
+
+ 
+   
+    function makeDropdown(id,options,header,selValue='',err){
+            const arr1=options.map(opt=>{
+                let selected=opt===selValue?'selected ':''
+                let disabled=opt===selValue?'selected ':''
+                return `<option `+selected+`>`+opt+`</option>`
+            })
+            let s1=`<div class="form-check form-check-inline">`
+                s1+=`<select id="`+id+`" class='form-control'>`;
+                    let selectedHeader=selValue?'':'selected'
+                s1+=`<option value=""`+selectedHeader+`>`+header+`</option>`
+                s1+=arr1.join('');
+                s1+=`</select>`
+                let s2=err?`<br><span class="text-danger">`+err+`</span>`:'';
+                s1+=`</div>`
+                return `<div class="form-check form-check-inline">`+s1+`</div>`+s2;
+}
+    
+    </script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
