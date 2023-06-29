@@ -107,11 +107,16 @@ let crusts = ["New Hand Tossed","Wheat Thin Crust","Cheese Burst","Fresh Pan Piz
 {"id":"PIZNCD","image":"https://i.ibb.co/GFtkbB1/Chicken-Dominator10.png","type":"Pizza","name":"Chicken Dominator","desc":"Loaded with double pepper barbecue chicken, peri-peri chicken, chicken tikka & grilled chicken rashers","veg":"No"},
 {"id":"PIZNPB","image":"https://i.ibb.co/GxbtcLK/Pepper-Barbeque-Onion-C.png","type":"Pizza","name":"Pepper Barbecue & Onion","desc":"A classic favourite with pepper barbeque chicken & onion","veg":"No"},
 {"id":"PIZNIC","image":"https://i.ibb.co/6Z5wBqr/Indian-Tandoori-Chicken-Tikka.png","type":"Pizza","name":"Indi Chicken Tikka","desc":"The wholesome flavour of tandoori masala with Chicken tikka, onion, red paprika & mint mayo","veg":"No"}]
+
 let veg,nonveg,sides,others;
      
         let editIndex=-1
         let visionIndex=-1
         let a=''
+        Cart()
+           showNavbar(1)
+            let html=showProducts(shirt,shirt.length);
+            document.getElementById('show').innerHTML=html+`<br>`
         function show(arr,size='',crust=''){
             Cart()
            showNavbar(1)
@@ -298,6 +303,7 @@ else{
                 Cart()
             }
         }
+ 
    
         showNavbar()
         
